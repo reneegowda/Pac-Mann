@@ -1,0 +1,71 @@
+# Assignment 6 reflection
+
+## Submitter metadata
+
+Partner 1: Renee Gowda (rsg276)
+Partner 2: Leepakshi Anand (la453)
+
+Hours spent working on this assignment: 20.0
+
+## Verification questions
+
+Play a game of PacMann (on the default 10 x 10 board) by running "GraphicalApp.java".
+If you completed the assignment with a partner, both partners should independently 
+play the game and report on the following items:
+
+1. How many pellets (i.e., the big circles) did PacMann eat?
+
+   Renee Answer: 4
+   Leepakshi Answer: 2
+
+2. During each of the FLEE sequences, how many ghosts did PacMann eat?
+
+   Renee Answer: 2
+   Leepakshi Answer: 1
+
+3. What was your final score?
+
+   Renee Answer: 3600
+   Leepakshi Answer: 2800
+
+## Reflection questions
+
+1. For TODO 1, briefly explain how you constructed your graph. Did you discover
+   the maze via a BFS/DFS search, or did you iterate directly over the tile grid
+   to locate edges? Why did you choose this approach?
+   
+   To construct the graph, I iterated directly over the tile grid instead of performing a BFS or
+   DFS traversal. In the first pass, I looped through every tile in the grid and created a
+   MazeVertex for each tile marked as a PATH. These vertices were stored in a map keyed by their
+   grid location. In the second pass, I again iterated through the grid and, for each PATH tile,
+   added directed MazeEdge connections to its orthogonally adjacent neighbors (up, down, left,
+   right), but only if the neighboring tile was also a PATH. I also accounted for tunnel
+   connections by adding wraparound edges at the borders—for example, connecting the rightmost
+   column to the leftmost, and the bottom row to the top row. I chose this approach because the
+   entire maze structure is already available through the GameMap's tile data, making direct
+   iteration more efficient and straightforward than a traversal-based approach. It ensures full
+   coverage of all PATH tiles and edges without the risk of missing isolated components, and it
+   cleanly separates vertex creation from edge construction.
+
+2. In the original Pac-Man game, a piece of fruit appeared at a predetermined 
+   position on the board once Pac-Man had eaten 70 dots and remained on the screen 
+   for 9 seconds. Eating this fruit awarded the player a score bonus. Describe how 
+   you could add this feature to your PacMann game. Which files, fields, or methods 
+   would you need to edit / add? 
+
+   To add the fruit feature to the PacMann game, a new Fruit class would need to be created,
+   extending the Actor class, to represent the fruit on the board. This class would track
+   properties such as its location, the time it stays on screen (9 seconds), and its interaction
+   with PacMann. In the GameModel class, a new field, such as dotsEaten, would be added to track
+   how many dots PacMann has eaten. Once 70 dots are consumed, the fruit would spawn at a
+   predetermined position on the board. The GameModel would also need logic to check for the
+   fruit’s 9-second timer and remove it if not eaten in time. Additionally, the
+   processPacMannArrival() method would be updated to handle PacMann's collision with the fruit,
+   awarding the player a score bonus and removing the fruit from the board. The fruit's visibility
+   would be managed in the GameModel to ensure it only appears after PacMann has eaten the required
+   number of dots and disappears after 9 seconds or when eaten. New tests would also be necessary
+   to ensure that the fruit behaves correctly, appearing at the right time, staying visible for
+   the correct duration, and interacting with PacMann to trigger the score bonus. These changes
+   would require modifications to the GameModel, the addition of the Fruit class, and updates to
+   collision handling in PacMann, along with the addition of relevant tests.
+
