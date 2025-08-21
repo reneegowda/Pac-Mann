@@ -1,0 +1,91 @@
+# Assignment 3 reflection
+
+## Submitter metadata
+
+Partner 1: Firstname Lastname (NetID)  - Renee Gowda (rsg276)
+Partner 2: Firstname Lastname (NetID)  - Leepakshi Anand (la453)
+
+Hours spent working on this assignment: 15.0
+
+## Verification questions
+
+Run your Gradescope` application with program arguments so that it adds summary statistics to 
+`csv/mock_2800_hw_gradebook.csv`. This file is meant to mimic the hw grading policy of Matt's
+2800 course, where there are 12 assignments and the lowest two homework scores are dropped (Ex).
+Note that the names in this file were produced with Generative AI and the scores are random, so
+any similarity to actual 2800 students is purely coincidental. Use the output CSV file to answer
+the following questions
+
+1. What was Sofia Martinez's average homework score (across the non-dropped assignments)? 
+
+   Answer: 18.6
+
+2. Which assignment had the lowest average score?
+
+   Answer: HW #5
+
+3. On which assignment were the students' scores most spread out? 
+
+   Answer: HW #2
+
+## Reflection questions
+
+1. What were the two bugs in the `ArraySeq` class? (be specific)  Describe the testcases you wrote
+   that triggered these bugs and what the failure signature was for each (e.g., invariant violated,
+   a particular exception was thrown, etc.).
+
+  I found two bugs in the ArraySeq class, one in the insertBefore() function and another in
+  remove(). When I tested insertBefore() function with an a sequence that was already full, it
+  failed with an Index Out of Bounds Exception, which showed that the function wasn't handling
+  cases where resizing needs to be triggered. For remove(), my test case checked if the size
+  decreased correctly after removing an element, but it failed with an AssertionError. The issue
+  was that the function logic wasn’t actually reducing the size after a removal. I fixed this by
+  updating the code to make sure the size decreases properly when an element is removed.
+
+2. Which `DLinkedSeq` operation did you think was the most difficult to implement and debug?  What
+   corner case caught you by surprise or was particularly awkward to handle?  Finally, describe a
+   testing scenario that you added which covers this corner case.
+
+   The most difficult part of the DLinkedSeq operation for me was the remove() function. The main
+   challenge came from visualizing the removal of a node and correctly adjusting the links between
+   the neighboring nodes. Specifically, it took me a while to wrap my head around the concept
+   that by adjusting the next pointer of the previous node and the prev pointer of the next node,
+   I could effectively remove the current node from the sequence. Understanding the bidirectional
+   nature of the doubly linked list was crucial but tricky to grasp initially. The corner case
+   that caught me by surprise was when removing the first or last element in the sequence. In
+   these cases, it’s important to correctly update the head or tail pointers to maintain the
+   integrity of the list. These edge cases took a little extra time to implement and debug because
+   I had to ensure that the list would still be properly connected after removal, without leaving
+   dangling pointers or losing access to the next or previous nodes. To address this, I added a
+   testing scenario where I removed the first and last elements from a sequence with multiple
+   nodes, ensuring that the head or tail pointers were correctly updated after each operation.
+
+3. Describe the testing that you did to confirm the functionality of the `Gradebook` class. Did you
+   write any unit tests and/or additional end-to-end tests? Were there particular methods that you
+   felt required more or less testing? Were there issues with your code that you discovered through
+   this testing?
+
+   To test the functionality of the Gradebook class, I wrote a bunch of unit tests to check each
+   function thoroughly. I focused a lot on the methods for adding summary rows and columns because
+   they seemed a bit more complicated, and I wanted to make sure they were working right. These
+   methods felt like they had more moving parts, so I thought they needed extra attention. I felt
+   like the end-to-end test was able to test the math functions like mean and standard deviation,
+   but I realized that I didn't have as much coverage for some of the other methods, so I wrote a
+   few more unit tests to make sure everything was working well, not just the calculations. After
+   running all the tests, I didn’t find any issues with the code, which was great! I think the
+   testing helped me feel confident that the Gradebook class was solid, especially when it came
+   to the more complex methods.
+
+4. How did you plan and budget your time so that you could complete and debug your application by
+   the deadline?  If you worked as partners, how did you coordinate to ensure in advance that you
+   would have sufficient time to work on the project together?
+
+   To ensure we completed and debugged our application by the deadline, my partner and I planned
+   our time by dividing the project into smaller, manageable tasks. We discussed each section of
+   the project based on our strengths and availability, so we could work efficiently. We created
+   a shared timeline with deadlines for each task, and we made sure to allocate extra time for
+   testing and debugging since we knew those stages could take longer than expected. We coordinated
+   our efforts by holding regular check-ins to review progress, share any challenges, and make
+   sure we were both on track. If one of us encountered an issue, the other could step in and
+   provide support. This planning and communication ensured that we had enough time to complete
+   the project, review each other’s work, and test everything thoroughly before the deadline.
