@@ -1,0 +1,62 @@
+# Assignment 5 reflection
+
+## Submitter metadata
+
+Partner 1: Renee Gowda (rsg276)
+Partner 2: Ahlaam Sebri (ans264)
+
+Hours spent working on this assignment: 20.0  - TODO
+
+## Verification questions
+
+In the "menus" folder of your project, you'll find dinner menus from seven of Cornell's dining
+halls on Wednesday, March 26 (information from https://now.dining.cornell.edu/eateries). Use your
+IndexerApp to answer the following questions about these menus.
+
+1. Which dining halls were serving quinoa that night?
+
+   Answer: 104West, Morrison, Okenshields
+
+2. On how many lines of North Star's menu does "chicken" appear?
+
+   Answer: 3
+
+3. Only one dining hall was serving a sausage pizza. Which one?
+
+   Answer: North Star
+
+## Reflection questions
+
+1. For a single source with N words of a fixed length, what is the expected asymptotic complexity of
+   your `CollectionsIterator` solution in terms of N? (you will need to read the JavaDoc pages for
+   the collections and methods you used in order to know their complexity claims)  Explain your
+   reasoning.
+
+   For a single source file containing N words of fixed length, the expected asymptotic
+   complexity of the CollectionsIndexerApp solution is O(N * (log W + log L)), where W is the
+   number of distinct words in the file and L is the number of lines. Each word in the file
+   is processed individually: it is converted to uppercase, which is a constant-time operation
+   for fixed-length strings, checked against a HashSet to avoid duplicate entries on the same
+   line, which takes average-case O(1) time, inserted into a TreeMap to associate it with the
+   current file, which takes O(log W) time due to the underlying red-black tree implementation,
+   and its line number is added to a TreeSet, which takes O(log L) time to maintain sorted,
+   duplicate-free line numbers. These operations are repeated for each of the N words, leading
+   to a total time complexity of O(N * (log W + log L)). The use of TreeMap and TreeSet ensures
+   that the final index is sorted lexicographically by word and by line number, but this
+   introduces logarithmic overhead for insertion and lookup.
+
+
+2. What is the **worst-case** time complexity of TwoPassIndexer in terms of N, the total number of
+   words across all files?  What algorithmic substitution would improve this worst-case complexity,
+   and what would the new complexity be?
+
+   My two‑pass indexer first gathers all words in one sweep, then sorts and removes duplicates,
+   and finally looks up each word by binary search in a second sweep. Because sorting and binary
+   search both become more expensive as the word list grows, the total work ends up growing in
+   proportion to the number of words times an additional “logarithmic” factor. To make the
+   worst‑case behavior truly linear, I would swap out the sorted list and binary‐search step for
+   a hash‐based or trie‐based dictionary. That way, inserting each word and then looking it up
+   again both cost only a fixed amount of work per word (or at most proportional to the word’s
+   length), so the total work would grow in direct proportion to the number of words rather than
+   multiplying by any extra factor.
+
